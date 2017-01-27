@@ -12,11 +12,12 @@
 				<a v-link="{path: '/seller'}">商家</a>
 			</div>
 		</div>
-		<router-view :seller="seller"></router-view>
+		<router-view :seller="seller" keep-alive></router-view>
 	</div>
 </template>
 
 <script>
+	import {urlParse} from 'common/js/utils.js'
 	import header from './components/header/header.vue'
 
 	const ERR_OK = 0
@@ -27,14 +28,19 @@
 		},
 		data () {
 			return {
-				seller: {}
+				seller: {
+					id: (() => {
+						let queryParam = urlParse()
+						return queryParam.id
+					})()
+				}
 			}
 		},
 		created() {
-			this.$http.get('/api/seller').then(response => {
+			this.$http.get('/api/seller?id=' + this.seller.id).then(response => {
 				response = response.body
 				if (response.errno === ERR_OK) {
-					this.seller = response.data
+					this.seller = Object.assign({}, this.seller, response.data)
 				}
 			})
 		}
