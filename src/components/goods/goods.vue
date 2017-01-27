@@ -73,8 +73,8 @@
 		},
 		created () {
 			this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-			this.$http.get('/api/goods').then(response => {
-				response = response.body
+			this.$http.post('http://218.244.138.206:5002/api/vueEle/', { type: 'goods' }).then(response => {
+				response = JSON.parse(response.body)
 				if (response.errno === ERR_OK) {
 					this.goods = response.data
 					this.$nextTick(() => {

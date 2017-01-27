@@ -37,8 +37,9 @@
 			}
 		},
 		created() {
-			this.$http.get('/api/seller?id=' + this.seller.id).then(response => {
-				response = response.body
+			this.$http.post('http://218.244.138.206:5002/api/vueEle/?id=' + this.seller.id, { type: 'seller' }).then(response => {
+				console.log(response)
+				response = JSON.parse(response.body)
 				if (response.errno === ERR_OK) {
 					this.seller = Object.assign({}, this.seller, response.data)
 				}

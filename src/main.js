@@ -10,6 +10,10 @@ import 'common/stylus/index.styl'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
+// 可以让浏览器不发送OPTIONS预请求
+// 开发模式跨域必须加上这句，很重要！！！
+Vue.http.options.emulateJSON = true
+
 let router = new VueRouter({
 	linkActiveClass: 'active'
 })

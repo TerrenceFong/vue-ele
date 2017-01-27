@@ -84,8 +84,8 @@
 
 		},
 		created () {
-			this.$http.get('/api/ratings').then(response => {
-				response = response.body
+			this.$http.post('http://218.244.138.206:5002/api/vueEle/', { type: 'ratings' }).then(response => {
+				response = JSON.parse(response.body)
 				if (response.errno === ERR_OK) {
 					this.ratings = response.data
 					this.$nextTick(() => {
